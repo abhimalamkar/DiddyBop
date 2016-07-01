@@ -37,6 +37,9 @@ DiddyBop_AudioProcessor::DiddyBop_AudioProcessor()
 		inputBuffer[i].setSize(1, 1);
 	}
 
+
+
+
 	//Compressor
 	//=======================
 	resetAll();
@@ -146,6 +149,8 @@ void DiddyBop_AudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlo
 		compressor_[i] = new Compressor(bufferSize,sampleRate);
 	}
 	
+	compressor_[0]->setThreshold(getThreshold());
+
 	/*x_g.allocate(bufferSize, true);
 	x_l.allocate(bufferSize, true);
 	y_g.allocate(bufferSize, true);
@@ -240,7 +245,7 @@ void DiddyBop_AudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer
 		inputBuffer[0].clear();
 		for (int m = 0; m < M; ++m)
 		{
-			//if ((threshold < 0))
+			//if ((compressor_[0]->getThreshold() < 0))
 			{
 				inputBuffer[0].clear(m, 0, bufferSize);
 				// Mix down left-right to analyse the input		
@@ -254,12 +259,12 @@ void DiddyBop_AudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer
 				compressor_[0]->setRatio(2);
 				compressor_[0]->setAttackTime(14);
 				compressor_[0]->setReleaseTime(41);
-				//compressor_[0]->setThreshold(-10);
+				compressor_[0]->setThreshold(getThreshold());
 				compressor_[0]->setGain(0);
 
 				if (compressor_[0]->getThreshold() < (-12))
 				{
-					compressor_[0]->setGain(3);
+					compressor_[0]->setGain(abs(10));
 					//setParameterNotifyingHost(DiddyBop_AudioProcessor::kGainDecibelsParam, 10);
 				}
 				else
@@ -267,6 +272,13 @@ void DiddyBop_AudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer
 					//
 
 				compressor_[0]->Compress(inputBuffer[0], m);
+
+				inputBuffer[1].makeCopyOf(inputBuffer[0]);
+
+				for (int i = 0; i < bufferSize; ++i)
+				{
+					//inputBuffer[1].getWritePointer(2 * m + 0)[i] *= compressor_[0]->c[i];
+				}
 
 
 				compressor_[1]->setRatio(2);

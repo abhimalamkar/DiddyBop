@@ -39,6 +39,8 @@ DiddyBop_AudioProcessorEditor::DiddyBop_AudioProcessorEditor (DiddyBop_AudioProc
     Compressor1->setTextBoxStyle (Slider::TextBoxLeft, false, 80, 20);
     Compressor1->addListener (this);
 
+	Compressor1->setSkewFactorFromMidPoint(-8);
+
     addAndMakeVisible (Compressor2 = new Slider ("Centre Frequecy"));
     Compressor2->setRange (-60, 0, -60);
     Compressor2->setSliderStyle (Slider::Rotary);
@@ -132,7 +134,7 @@ void DiddyBop_AudioProcessorEditor::sliderValueChanged (Slider* sliderThatWasMov
     if (sliderThatWasMoved == Compressor1)
     {
         //[UserSliderCode_Compressor1] -- add your slider handling code here..
-		getProcessor()->compressor_[0]->setThreshold(Compressor1->getValue());
+		getProcessor()->setThreshold(Compressor1->getValue());
         //[/UserSliderCode_Compressor1]
     }
     else if (sliderThatWasMoved == Compressor2)
