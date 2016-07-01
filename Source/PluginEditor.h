@@ -67,26 +67,11 @@ private:
     //[/UserVariables]
 
     //==============================================================================
-    ScopedPointer<Slider> EqCentreFrequecy_Slider;
-    ScopedPointer<Label> CentreFrequecy_Lebel;
-    ScopedPointer<Slider> EqQ_Slider;
-    ScopedPointer<Label> Q_Lebel;
-    ScopedPointer<Slider> EqGain_Slider;
-    ScopedPointer<Label> GaindB_Lebel;
-    ScopedPointer<ToggleButton> EqToggleButton;
-    ScopedPointer<Slider> CompressionRatio_Slider;
-    ScopedPointer<Label> CompressionRatio_Label;
-    ScopedPointer<Slider> AttactTime_Slider;
-    ScopedPointer<Label> Q_Lebel2;
-    ScopedPointer<Slider> ReleaseTime_Slider;
-    ScopedPointer<Label> GaindB_Lebel2;
+    ScopedPointer<Slider> Compressor1;
+    ScopedPointer<Slider> Compressor2;
     ScopedPointer<ToggleButton> CompressorToggle;
-    ScopedPointer<Slider> Threshold_Slider;
-    ScopedPointer<Label> Threshold;
-    ScopedPointer<Slider> CompressorGain_Slider;
-    ScopedPointer<Label> Threshold2;
-    ScopedPointer<ToggleButton> CompressorToggle2;
-    ScopedPointer<Slider> Threshold_Slider2;
+    ScopedPointer<Slider> Input_Gain;
+    ScopedPointer<Slider> OutPut_Gain;
 
 
     //==============================================================================

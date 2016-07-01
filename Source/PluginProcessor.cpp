@@ -141,7 +141,7 @@ void DiddyBop_AudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlo
 	// Allocate a lot of dynamic memory here
 
 	compressor_ = (Compressor**)malloc(2 * sizeof(Compressor*));
-	for (size_t i = 0; i < 2; i++)
+	for (size_t i = 0; i < 3; i++)
 	{
 		compressor_[i] = new Compressor(bufferSize,sampleRate);
 	}
@@ -213,8 +213,12 @@ void DiddyBop_AudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer
 	int channel;
 
 
+	setParameterNotifyingHost(DiddyBop_AudioProcessor::kCentreFrequencyParam,10);
+	setParameterNotifyingHost(DiddyBop_AudioProcessor::kQParam, 0.1);
+		
+
 	// Go through each channel of audio that's passed in
-	if (onOff)
+	//if (onOff)
 	{
 		for (channel = 0; channel < totalNumInputChannels; ++channel)
 		{
@@ -247,13 +251,42 @@ void DiddyBop_AudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer
 				
 				inputBuffer[1].makeCopyOf(inputBuffer[0]);
 				
+				compressor_[0]->setRatio(2);
+				compressor_[0]->setAttackTime(14);
+				compressor_[0]->setReleaseTime(41);
+				//compressor_[0]->setThreshold(-10);
+				compressor_[0]->setGain(0);
+
+				if (compressor_[0]->getThreshold() < (-12))
+				{
+					compressor_[0]->setGain(3);
+					//setParameterNotifyingHost(DiddyBop_AudioProcessor::kGainDecibelsParam, 10);
+				}
+				else
+					compressor_[0]->setGain(0);
+					//
+
 				compressor_[0]->Compress(inputBuffer[0], m);
+
 
 				compressor_[1]->setRatio(2);
 				compressor_[1]->setAttackTime(50);
 				compressor_[1]->setReleaseTime(80);
 				compressor_[1]->setThreshold(-10);
+				compressor_[1]->setGain(0);
 			    compressor_[1]->Compress(inputBuffer[1], m);
+
+
+				//inputBuffer[2].makeCopyOf(inputBuffer[1]);
+
+				//compressor_[0]->Compress(inputBuffer[0], m);
+
+				compressor_[2]->setRatio(40);
+				compressor_[2]->setAttackTime(20);
+				compressor_[2]->setReleaseTime(90);
+				compressor_[2]->setThreshold(-0.2);
+				compressor_[2]->setGain(0);
+				compressor_[2]->Compress(inputBuffer[1], m);
 
 				for (int i = 0; i < bufferSize; ++i)
 				{
