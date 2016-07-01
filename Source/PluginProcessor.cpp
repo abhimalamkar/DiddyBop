@@ -227,7 +227,7 @@ void DiddyBop_AudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer
 		setParameterNotifyingHost(DiddyBop_AudioProcessor::kQParam, 0.1);
 	}
 	
-	
+	float** samples;
 		
 
 	// Go through each channel of audio that's passed in
@@ -253,7 +253,7 @@ void DiddyBop_AudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer
 		inputBuffer[0].clear();
 		for (int m = 0; m < M; ++m)
 		{
-			//if ((compressor_[0]->getThreshold() < 0))
+			if ((compressor_[0]->getThreshold() < 0))
 			{
 				inputBuffer[0].clear(m, 0, bufferSize);
 				// Mix down left-right to analyse the input		
@@ -270,6 +270,8 @@ void DiddyBop_AudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer
 				compressor_[0]->setThreshold(getThreshold());
 				compressor_[0]->setGain(0);
 
+
+				//gain if compression is less than -12
 				if (compressor_[0]->getThreshold() < (-12))
 				{
 					compressor_[0]->setGain(abs(10));
@@ -278,16 +280,22 @@ void DiddyBop_AudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer
 				else
 					compressor_[0]->setGain(0);
 					//
-
+				//Compress Buffer 0
 				compressor_[0]->Compress(inputBuffer[0], m);
 
+
+				//Make a copy of buffer 0
 				inputBuffer[1].makeCopyOf(inputBuffer[0]);
 
-				for (int i = 0; i < bufferSize; ++i)
-				{
-					//inputBuffer[1].getWritePointer(2 * m + 0)[i] *= compressor_[0]->c[i];
-				}
+				//InputBuffer1 copy
 
+				/*samples[0] = buffer.getWritePointer(0);
+				samples[1] = buffer.getWritePointer(1);*/
+				
+				//for (int i = 0; i < bufferSize; ++i)
+				//{
+				//	//inputBuffer[1].getWritePointer(2 * m + 0)[i] *= compressor_[0]->c[i];
+				//}
 
 				compressor_[1]->setRatio(2);
 				compressor_[1]->setAttackTime(50);
@@ -296,8 +304,9 @@ void DiddyBop_AudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer
 				compressor_[1]->setGain(0);
 			    compressor_[1]->Compress(inputBuffer[1], m);
 
-
 				//inputBuffer[2].makeCopyOf(inputBuffer[1]);
+
+
 
 				//compressor_[0]->Compress(inputBuffer[0], m);
 
@@ -310,7 +319,7 @@ void DiddyBop_AudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer
 
 				for (int i = 0; i < bufferSize; ++i)
 				{
-		     		compressor_[0]->c[i] *= compressor_[1]->c[i];
+		     		compressor_[0]->c[i] *= compressor_[1]->c[i]*compressor_[2]->c[i];
 				}
 
 				// apply control voltage to the audio signal
