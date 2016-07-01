@@ -48,7 +48,7 @@ public:
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
 
-	void timerCallback() override;
+	void timerCallback();
 	DiddyBop_AudioProcessor* getProcessor() const {
 		return static_cast<DiddyBop_AudioProcessor*> (getAudioProcessor());
 	}
@@ -85,60 +85,8 @@ private:
     ScopedPointer<Label> Threshold;
     ScopedPointer<Slider> CompressorGain_Slider;
     ScopedPointer<Label> Threshold2;
-    ScopedPointer<Slider> EqCentreFrequecy_Slider2;
-    ScopedPointer<Label> CentreFrequecy_Lebel2;
-    ScopedPointer<Slider> EqQ_Slider2;
-    ScopedPointer<Label> Q_Lebel3;
-    ScopedPointer<Slider> EqGain_Slider2;
-    ScopedPointer<Label> GaindB_Lebel3;
-    ScopedPointer<ToggleButton> EqToggleButton2;
-    ScopedPointer<Slider> CompressionRatio_Slider2;
-    ScopedPointer<Label> CompressionRatio_Label2;
-    ScopedPointer<Slider> AttactTime_Slider2;
-    ScopedPointer<Label> Q_Lebel4;
-    ScopedPointer<Slider> ReleaseTime_Slider2;
-    ScopedPointer<Label> GaindB_Lebel4;
     ScopedPointer<ToggleButton> CompressorToggle2;
     ScopedPointer<Slider> Threshold_Slider2;
-    ScopedPointer<Label> Threshold3;
-    ScopedPointer<Slider> CompressorGain_Slider2;
-    ScopedPointer<Label> Threshold4;
-    ScopedPointer<Slider> EqCentreFrequecy_Slider3;
-    ScopedPointer<Label> CentreFrequecy_Lebel3;
-    ScopedPointer<Slider> EqQ_Slider3;
-    ScopedPointer<Label> Q_Lebel5;
-    ScopedPointer<Slider> EqGain_Slider3;
-    ScopedPointer<Label> GaindB_Lebel5;
-    ScopedPointer<ToggleButton> EqToggleButton3;
-    ScopedPointer<Slider> CompressionRatio_Slider3;
-    ScopedPointer<Label> CompressionRatio_Label3;
-    ScopedPointer<Slider> AttactTime_Slider3;
-    ScopedPointer<Label> Q_Lebel6;
-    ScopedPointer<Slider> ReleaseTime_Slider3;
-    ScopedPointer<Label> GaindB_Lebel6;
-    ScopedPointer<ToggleButton> CompressorToggle3;
-    ScopedPointer<Slider> Threshold_Slider3;
-    ScopedPointer<Label> Threshold5;
-    ScopedPointer<Slider> CompressorGain_Slider3;
-    ScopedPointer<Label> Threshold6;
-    ScopedPointer<Slider> EqCentreFrequecy_Slider4;
-    ScopedPointer<Label> CentreFrequecy_Lebel4;
-    ScopedPointer<Slider> EqQ_Slider4;
-    ScopedPointer<Label> Q_Lebel7;
-    ScopedPointer<Slider> EqGain_Slider4;
-    ScopedPointer<Label> GaindB_Lebel7;
-    ScopedPointer<ToggleButton> EqToggleButton4;
-    ScopedPointer<Slider> CompressionRatio_Slider4;
-    ScopedPointer<Label> CompressionRatio_Label4;
-    ScopedPointer<Slider> AttactTime_Slider4;
-    ScopedPointer<Label> Q_Lebel8;
-    ScopedPointer<Slider> ReleaseTime_Slider4;
-    ScopedPointer<Label> GaindB_Lebel8;
-    ScopedPointer<ToggleButton> CompressorToggle4;
-    ScopedPointer<Slider> Threshold_Slider4;
-    ScopedPointer<Label> Threshold7;
-    ScopedPointer<Slider> CompressorGain_Slider4;
-    ScopedPointer<Label> Threshold8;
 
 
     //==============================================================================

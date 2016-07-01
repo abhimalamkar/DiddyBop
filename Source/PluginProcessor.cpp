@@ -236,7 +236,7 @@ void DiddyBop_AudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer
 		inputBuffer[0].clear();
 		for (int m = 0; m < M; ++m)
 		{
-			if ((threshold < 0))
+			//if ((threshold < 0))
 			{
 				inputBuffer[0].clear(m, 0, bufferSize);
 				// Mix down left-right to analyse the input		
@@ -244,14 +244,29 @@ void DiddyBop_AudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer
 				inputBuffer[0].addFrom(m, 0, buffer, m * 2 + 1, 0, bufferSize, 0.5);
 				// compression : calculates the control voltage
 				//compressor(inputBuffer[0], m);
+				
+				inputBuffer[1].makeCopyOf(inputBuffer[0]);
+				
 				compressor_[0]->Compress(inputBuffer[0], m);
-			    compressor_[1]->Compress(inputBuffer[0], m);
+
+				compressor_[1]->setRatio(2);
+				compressor_[1]->setAttackTime(50);
+				compressor_[1]->setReleaseTime(80);
+				compressor_[1]->setThreshold(-10);
+			    compressor_[1]->Compress(inputBuffer[1], m);
+
+				for (int i = 0; i < bufferSize; ++i)
+				{
+		     		compressor_[0]->c[i] *= compressor_[1]->c[i];
+				}
+
 				// apply control voltage to the audio signal
 				for (int i = 0; i < bufferSize; ++i)
 				{
 					buffer.getWritePointer(2 * m + 0)[i] *= compressor_[0]->c[i];
 					buffer.getWritePointer(2 * m + 1)[i] *= compressor_[0]->c[i];
 				}
+
 				inputBuffer[0].clear(m, 0, bufferSize);
 				// Mix down left-right to analyse the output
 				inputBuffer[0].addFrom(m, 0, buffer, m * 2, 0, bufferSize, 0.5);
