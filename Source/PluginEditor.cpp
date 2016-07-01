@@ -93,11 +93,6 @@ DiddyBop_AudioProcessorEditor::~DiddyBop_AudioProcessorEditor()
     //[/Destructor]
 }
 
-void DiddyBop_AudioProcessorEditor::timerCallback()
-{
-
-}
-
 //==============================================================================
 void DiddyBop_AudioProcessorEditor::paint (Graphics& g)
 {
@@ -225,7 +220,7 @@ BEGIN_JUCER_METADATA
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
   <SLIDER name="Centre Frequecy" id="946cb98305b9c7d6" memberName="Input_Gain"
           virtualName="" explicitFocusOrder="0" pos="56 312 200 108" min="-20"
-          max="25" int="1" style="Rotary" textBoxPos="TextBoxLeft" textBoxEditable="1"
+          max="30" int="1" style="Rotary" textBoxPos="TextBoxLeft" textBoxEditable="1"
           textBoxWidth="80" textBoxHeight="20" skewFactor="1" needsCallback="1"/>
   <SLIDER name="Centre Frequecy" id="5d1d6c356b59ff42" memberName="OutPut_Gain"
           virtualName="" explicitFocusOrder="0" pos="272 304 200 108" min="1"
