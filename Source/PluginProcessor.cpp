@@ -111,7 +111,6 @@ void DiddyBop_AudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlo
 {
 	// Use this method as the place to do any pre-playback
 
-	onOff = true;
 
 	//Eq Prepare
 	//==============================================================================
@@ -217,9 +216,18 @@ void DiddyBop_AudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer
 	const int numSamples = buffer.getNumSamples();          // How many samples in the buffer for this block?
 	int channel;
 
-
-	setParameterNotifyingHost(DiddyBop_AudioProcessor::kCentreFrequencyParam,10);
-	setParameterNotifyingHost(DiddyBop_AudioProcessor::kQParam, 0.1);
+	if (bassBoost)
+	{
+		setParameterNotifyingHost(DiddyBop_AudioProcessor::kCentreFrequencyParam, 100);
+		setParameterNotifyingHost(DiddyBop_AudioProcessor::kQParam, 2);
+	}
+	else
+	{
+		setParameterNotifyingHost(DiddyBop_AudioProcessor::kCentreFrequencyParam, 10);
+		setParameterNotifyingHost(DiddyBop_AudioProcessor::kQParam, 0.1);
+	}
+	
+	
 		
 
 	// Go through each channel of audio that's passed in

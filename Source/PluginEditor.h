@@ -60,6 +60,9 @@ public:
     void sliderValueChanged (Slider* sliderThatWasMoved) override;
     void buttonClicked (Button* buttonThatWasClicked) override;
 
+    // Binary resources:
+    static const char* comp4_00098_png;
+    static const int comp4_00098_pngSize;
 
 
 private:
@@ -72,6 +75,7 @@ private:
     ScopedPointer<ToggleButton> CompressorToggle;
     ScopedPointer<Slider> Input_Gain;
     ScopedPointer<Slider> OutPut_Gain;
+    ScopedPointer<ToggleButton> BassBoost;
 
 
     //==============================================================================

@@ -117,7 +117,7 @@ public:
     float getParameter(int index);
     void setParameter(int index, float newValue);
     int numEqFilters;
-    bool onOff;
+    bool bassBoost;
 
 private:
     //Eq
