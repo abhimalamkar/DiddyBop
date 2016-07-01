@@ -42,7 +42,7 @@ DiddyBop_AudioProcessor::DiddyBop_AudioProcessor()
 
 	//Compressor
 	//=======================
-	resetAll();
+//	resetAll();
 	//=======================
 
 	lastUIWidth_ = 550;
@@ -111,7 +111,7 @@ void DiddyBop_AudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlo
 {
 	// Use this method as the place to do any pre-playback
 
-
+	compressorONOFF[0] = true;
 	//Eq Prepare
 	//==============================================================================
 
@@ -218,8 +218,8 @@ void DiddyBop_AudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer
 
 	if (bassBoost)
 	{
-		setParameterNotifyingHost(DiddyBop_AudioProcessor::kCentreFrequencyParam, 100);
-		setParameterNotifyingHost(DiddyBop_AudioProcessor::kQParam, 2);
+		setParameterNotifyingHost(DiddyBop_AudioProcessor::kCentreFrequencyParam, 80);
+		setParameterNotifyingHost(DiddyBop_AudioProcessor::kQParam, 1.75);
 	}
 	else
 	{
@@ -274,7 +274,7 @@ void DiddyBop_AudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer
 				//gain if compression is less than -12
 				if (compressor_[0]->getThreshold() < (-12))
 				{
-					compressor_[0]->setGain(abs(10));
+					compressor_[0]->setGain(abs(3));
 					//setParameterNotifyingHost(DiddyBop_AudioProcessor::kGainDecibelsParam, 10);
 				}
 				else
@@ -307,13 +307,12 @@ void DiddyBop_AudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer
 				//inputBuffer[2].makeCopyOf(inputBuffer[1]);
 
 
-
 				//compressor_[0]->Compress(inputBuffer[0], m);
 
 				compressor_[2]->setRatio(40);
 				compressor_[2]->setAttackTime(20);
 				compressor_[2]->setReleaseTime(90);
-				compressor_[2]->setThreshold(-0.2);
+				compressor_[2]->setThreshold(-2);
 				compressor_[2]->setGain(0);
 				compressor_[2]->Compress(inputBuffer[1], m);
 
@@ -493,46 +492,9 @@ void DiddyBop_AudioProcessor::setReleaseTime(float R)
 	tauRelease = R;
 }
 
-void DiddyBop_AudioProcessor::resetAll()
-{
-	/*tauAttack = 0; tauRelease = 0;
-	alphaAttack = 0; alphaRelease = 0;
-	threshold = 0;
-	ratio = 1;
-	makeUpGain = 0;
-	yL_prev = 0;
-	for (int i = 0; i < bufferSize; ++i)
-	{
-		x_g[i] = 0;	y_g[i] = 0;
-		x_l[i] = 0;	y_l[i] = 0;
-		c[i] = 0; c2[i] = 0;
-	}*/
-
-}
 
 template <class T> const T& DiddyBop_AudioProcessor::max(const T& a, const T& b)
 {
 	return (a < b) ? b : a;
 }
 
-void DiddyBop_AudioProcessor::compressor(AudioSampleBuffer &buffer, int m)
-{
-	//alphaAttack = exp(-1 / (0.001 * samplerate * tauAttack));
-	//alphaRelease = exp(-1 / (0.001 * samplerate * tauRelease));
-	//for (int i = 0; i < bufferSize; ++i)
-	//{
-	//	//Level detection- estimate level using peak detector
-	//	if (fabs(buffer.getWritePointer(m)[i]) < 0.000001) x_g[i] = -120;
-	//	else x_g[i] = 20 * log10(fabs(buffer.getWritePointer(m)[i]));
-	//	//Gain computer- static apply input/output curve
-	//	if (x_g[i] >= threshold) y_g[i] = threshold + (x_g[i] - threshold) / ratio;
-	//	else y_g[i] = x_g[i];
-	//	x_l[i] = x_g[i] - y_g[i];
-	//	//Ballistics- smoothing of the gain 
-	//	if (x_l[0] > yL_prev)  y_l[i] = alphaAttack * yL_prev + (1 - alphaAttack) * x_l[i];
-	//	else				 y_l[i] = alphaRelease* yL_prev + (1 - alphaRelease) * x_l[i];
-	//	//find control
-	//	c[i] = pow(10, (makeUpGain - y_l[i]) / 20);
-	//	yL_prev = y_l[i];
-	//}
-}

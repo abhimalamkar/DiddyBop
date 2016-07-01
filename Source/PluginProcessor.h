@@ -89,7 +89,7 @@ public:
     void setRatio(float R);
     void setAttackTime(float A);
     void setReleaseTime(float R);
-    void resetAll();
+    //void resetAll();
 
     // parameters
     int bufferSize;

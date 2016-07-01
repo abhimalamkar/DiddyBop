@@ -34,7 +34,7 @@ DiddyBop_AudioProcessorEditor::DiddyBop_AudioProcessorEditor (DiddyBop_AudioProc
     //[/Constructor_pre]
 
     addAndMakeVisible (Compressor1 = new Slider ("Centre Frequecy"));
-    Compressor1->setRange (-60, 0, -60);
+    Compressor1->setRange (-30, 0, -30);
     Compressor1->setSliderStyle (Slider::Rotary);
     Compressor1->setTextBoxStyle (Slider::TextBoxLeft, false, 80, 20);
     Compressor1->addListener (this);
@@ -50,7 +50,7 @@ DiddyBop_AudioProcessorEditor::DiddyBop_AudioProcessorEditor (DiddyBop_AudioProc
     CompressorToggle->addListener (this);
 
     addAndMakeVisible (Input_Gain = new Slider ("Centre Frequecy"));
-    Input_Gain->setRange (-100, 100, 1);
+    Input_Gain->setRange (-20, 30, 1);
     Input_Gain->setSliderStyle (Slider::Rotary);
     Input_Gain->setTextBoxStyle (Slider::TextBoxLeft, false, 80, 20);
     Input_Gain->addListener (this);
@@ -95,6 +95,7 @@ DiddyBop_AudioProcessorEditor::~DiddyBop_AudioProcessorEditor()
 
 void DiddyBop_AudioProcessorEditor::timerCallback()
 {
+
 }
 
 //==============================================================================
@@ -212,8 +213,8 @@ BEGIN_JUCER_METADATA
           fontname="Default font" fontsize="15" bold="0" italic="0" justification="36"/>
   </BACKGROUND>
   <SLIDER name="Centre Frequecy" id="46adac523b6bcc41" memberName="Compressor1"
-          virtualName="" explicitFocusOrder="0" pos="56 192 200 108" min="-60"
-          max="0" int="-60" style="Rotary" textBoxPos="TextBoxLeft" textBoxEditable="1"
+          virtualName="" explicitFocusOrder="0" pos="56 192 200 108" min="-30"
+          max="0" int="-30" style="Rotary" textBoxPos="TextBoxLeft" textBoxEditable="1"
           textBoxWidth="80" textBoxHeight="20" skewFactor="1" needsCallback="1"/>
   <SLIDER name="Centre Frequecy" id="52e6eeba1ce46d68" memberName="Compressor2"
           virtualName="" explicitFocusOrder="0" pos="272 192 200 104" min="-60"
@@ -223,8 +224,8 @@ BEGIN_JUCER_METADATA
                 virtualName="" explicitFocusOrder="0" pos="48 152 150 24" buttonText="Compressor"
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
   <SLIDER name="Centre Frequecy" id="946cb98305b9c7d6" memberName="Input_Gain"
-          virtualName="" explicitFocusOrder="0" pos="56 312 200 108" min="-100"
-          max="100" int="1" style="Rotary" textBoxPos="TextBoxLeft" textBoxEditable="1"
+          virtualName="" explicitFocusOrder="0" pos="56 312 200 108" min="-20"
+          max="25" int="1" style="Rotary" textBoxPos="TextBoxLeft" textBoxEditable="1"
           textBoxWidth="80" textBoxHeight="20" skewFactor="1" needsCallback="1"/>
   <SLIDER name="Centre Frequecy" id="5d1d6c356b59ff42" memberName="OutPut_Gain"
           virtualName="" explicitFocusOrder="0" pos="272 304 200 108" min="1"
