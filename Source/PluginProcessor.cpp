@@ -37,7 +37,7 @@ DiddyBop_AudioProcessor::DiddyBop_AudioProcessor()
 		inputBuffer[i].setSize(1, 1);
 	}
 
-
+	setThreshold(-1);
 
 
 	//Compressor
@@ -218,7 +218,7 @@ void DiddyBop_AudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer
 
 	if (bassBoost)
 	{
-		setParameterNotifyingHost(DiddyBop_AudioProcessor::kCentreFrequencyParam, 80);
+		setParameterNotifyingHost(DiddyBop_AudioProcessor::kCentreFrequencyParam, 73);
 		setParameterNotifyingHost(DiddyBop_AudioProcessor::kQParam, 1.75);
 	}
 	else
@@ -232,20 +232,20 @@ void DiddyBop_AudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer
 
 	// Go through each channel of audio that's passed in
 	//if (onOff)
-	{
-		for (channel = 0; channel < totalNumInputChannels; ++channel)
-		{
-			// channelData is an array of length numSamples which contains the audio for one channel
-			float* channelData = buffer.getWritePointer(channel);
+	//{
+	//	for (channel = 0; channel < totalNumInputChannels; ++channel)
+	//	{
+	//		// channelData is an array of length numSamples which contains the audio for one channel
+	//		float* channelData = buffer.getWritePointer(channel);
 
-			// Run the samples through the IIR filter whose coefficients define the parametric
-			// equaliser. See juce_IIRFilter.cpp for the implementation.
-			eqFilters_[channel]->processSamples(channelData, numSamples);
+	//		// Run the samples through the IIR filter whose coefficients define the parametric
+	//		// equaliser. See juce_IIRFilter.cpp for the implementation.
+	//		eqFilters_[channel]->processSamples(channelData, numSamples);
 
-		}
-	}
+	//	}
+	//}
 
-	if(compressorONOFF[0])
+//	if(compressorONOFF[0])
 	////////////////////////////////////////////////////
 	{
 
@@ -267,12 +267,13 @@ void DiddyBop_AudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer
 				compressor_[0]->setRatio(2);
 				compressor_[0]->setAttackTime(14);
 				compressor_[0]->setReleaseTime(41);
-				compressor_[0]->setThreshold(getThreshold());
+				//compressor_[0]->setThreshold(getThreshold());
+				setThreshold(compressor_[0]->getThreshold());
 				compressor_[0]->setGain(0);
 
 
 				//gain if compression is less than -12
-				if (compressor_[0]->getThreshold() < (-12))
+				if (compressor_[0]->getThreshold() < (-15))
 				{
 					compressor_[0]->setGain(abs(3));
 					//setParameterNotifyingHost(DiddyBop_AudioProcessor::kGainDecibelsParam, 10);
@@ -300,13 +301,19 @@ void DiddyBop_AudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer
 				compressor_[1]->setRatio(2);
 				compressor_[1]->setAttackTime(50);
 				compressor_[1]->setReleaseTime(80);
-				compressor_[1]->setThreshold(-10);
+				if (compressor_[0]->getThreshold() < (-10))
+				{
+					compressor_[1]->setThreshold(compressor_[0]->getThreshold());
+				}
+				else
+				{
+					compressor_[1]->setThreshold(-10);
+				}
 				compressor_[1]->setGain(0);
 			    compressor_[1]->Compress(inputBuffer[1], m);
 
 				//inputBuffer[2].makeCopyOf(inputBuffer[1]);
-
-
+				
 				//compressor_[0]->Compress(inputBuffer[0], m);
 
 				compressor_[2]->setRatio(40);
@@ -336,6 +343,21 @@ void DiddyBop_AudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer
 		}
 
 	}
+
+	//if (onOff)
+	//{
+		for (channel = 0; channel < totalNumInputChannels; ++channel)
+		{
+			// channelData is an array of length numSamples which contains the audio for one channel
+			float* channelData = buffer.getWritePointer(channel);
+
+			// Run the samples through the IIR filter whose coefficients define the parametric
+			// equaliser. See juce_IIRFilter.cpp for the implementation.
+			eqFilters_[channel]->processSamples(channelData, numSamples);
+
+		}
+	//}
+
 	// Go through the remaining channels. In case we have more outputs
 	// than inputs, or there aren't enough filters, we'll clear any
 	// remaining output channels (which could otherwise contain garbage)

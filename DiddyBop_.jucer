@@ -8,7 +8,7 @@
               pluginIsSynth="0" pluginWantsMidiIn="0" pluginProducesMidiOut="0"
               pluginIsMidiEffectPlugin="0" pluginEditorRequiresKeys="0" pluginAUExportPrefix="DiddyBop_AU"
               pluginRTASCategory="" aaxIdentifier="com.yourcompany.DiddyBop_"
-              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="4.2.1"
+              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="4.2.3"
               companyName="DiddyBop" companyWebsite="DiddyBop.com" companyEmail="Admin@DiddyBop.com">
   <MAINGROUP id="vQxPOl" name="DiddyBop_">
     <GROUP id="{33100ADC-DCF5-678C-25EB-AFC18B9D5C7B}" name="Source">
