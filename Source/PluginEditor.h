@@ -7,7 +7,7 @@
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
   and re-saved.
 
-  Created with Projucer version: 4.2.1
+  Created with Projucer version: 4.2.3
 
   ------------------------------------------------------------------------------
 
@@ -60,6 +60,9 @@ public:
     void sliderValueChanged (Slider* sliderThatWasMoved) override;
     void buttonClicked (Button* buttonThatWasClicked) override;
 
+    // Binary resources:
+    static const char* comp4_00100_png;
+    static const int comp4_00100_pngSize;
 
 
 private:
@@ -68,11 +71,10 @@ private:
 
     //==============================================================================
     ScopedPointer<Slider> Compressor1;
-    ScopedPointer<Slider> Compressor2;
-    ScopedPointer<ToggleButton> CompressorToggle;
     ScopedPointer<Slider> Input_Gain;
-    ScopedPointer<Slider> OutPut_Gain;
     ScopedPointer<ToggleButton> BassBoost;
+    Image cachedImage_comp4_00100_png_1;
+    Image cachedImage_comp4_00100_png_2;
 
 
     //==============================================================================
