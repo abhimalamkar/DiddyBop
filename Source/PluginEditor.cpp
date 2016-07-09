@@ -79,6 +79,9 @@ DiddyBop_AudioProcessorEditor::~DiddyBop_AudioProcessorEditor()
 
 void DiddyBop_AudioProcessorEditor::timerCallback()
 {
+	DiddyBop_AudioProcessor* ourProcessor = getProcessor();
+
+	Compressor1->setValue(ourProcessor->getThreshold());
 }
 
 //==============================================================================

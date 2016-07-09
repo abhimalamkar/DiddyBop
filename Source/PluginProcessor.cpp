@@ -360,12 +360,43 @@ void DiddyBop_AudioProcessor::getStateInformation(MemoryBlock& destData)
 	// You should use this method to store your parameters in the memory block.
 	// You could do that either as raw data, or use the XML or ValueTree classes
 	// as intermediaries to make it easy to save and load complex data.
+	// Create an outer XML element..
+	XmlElement xml("DIDDYBOP_PLUGINSETTINGS");
+
+	// add some attributes to it..
+	xml.setAttribute("uiWidth", lastUIWidth_);
+	xml.setAttribute("uiHeight", lastUIHeight_);
+	xml.setAttribute("threshold", threshold);
+	xml.setAttribute("q", q_);
+	xml.setAttribute("gainDecibels", gainDecibels_);
+
+	// then use this helper function to stuff it into the binary blob and return it..
+	copyXmlToBinary(xml, destData);
 }
 
 void DiddyBop_AudioProcessor::setStateInformation(const void* data, int sizeInBytes)
 {
 	// You should use this method to restore your parameters from this memory block,
 	// whose contents will have been created by the getStateInformation() call.
+
+	// This getXmlFromBinary() helper function retrieves our XML from the binary blob..
+	ScopedPointer<XmlElement> xmlState(getXmlFromBinary(data, sizeInBytes));
+
+	if (xmlState != 0)
+	{
+		// make sure that it's actually our type of XML object..
+		if (xmlState->hasTagName("DIDDYBOP_PLUGINSETTINGS"))
+		{
+			// ok, now pull out our parameters..
+			lastUIWidth_ = xmlState->getIntAttribute("uiWidth", lastUIWidth_);
+			lastUIHeight_ = xmlState->getIntAttribute("uiHeight", lastUIHeight_);
+
+			threshold = (float)xmlState->getDoubleAttribute("threshold", threshold);
+			q_ = (float)xmlState->getDoubleAttribute("q", q_);
+			gainDecibels_ = (float)xmlState->getDoubleAttribute("gainDecibels", gainDecibels_);
+			updateEQFilter(getSampleRate());
+		}
+	}
 }
 
 
