@@ -86,6 +86,8 @@ void DiddyBop_AudioProcessorEditor::timerCallback()
     
     Input_Gain->setValue(ourProcessor->gainDecibels_, dontSendNotification);
    
+   // BassBoost->setToggleState(ourProcessor()->bassBoost);
+    
 }
 
 //==============================================================================
