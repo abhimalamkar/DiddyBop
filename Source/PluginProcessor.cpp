@@ -363,8 +363,7 @@ void DiddyBop_AudioProcessor::getStateInformation(MemoryBlock& destData)
 	// add some attributes to it..
 	xml.setAttribute("uiWidth", lastUIWidth_);
 	xml.setAttribute("uiHeight", lastUIHeight_);
-	xml.setAttribute("centreFrequency", centreFrequency_);
-	xml.setAttribute("q", q_);
+	xml.setAttribute("threshold", threshold);
 	xml.setAttribute("gainDecibels", gainDecibels_);
 
 	// then use this helper function to stuff it into the binary blob and return it..
@@ -388,8 +387,7 @@ void DiddyBop_AudioProcessor::setStateInformation(const void* data, int sizeInBy
 			lastUIWidth_ = xmlState->getIntAttribute("uiWidth", lastUIWidth_);
 			lastUIHeight_ = xmlState->getIntAttribute("uiHeight", lastUIHeight_);
 
-			centreFrequency_ = (float)xmlState->getDoubleAttribute("centreFrequency", centreFrequency_);
-			q_ = (float)xmlState->getDoubleAttribute("q", q_);
+			threshold = (float)xmlState->getDoubleAttribute("threshold", threshold);
 			gainDecibels_ = (float)xmlState->getDoubleAttribute("gainDecibels", gainDecibels_);
 			updateEQFilter(getSampleRate());
 		}

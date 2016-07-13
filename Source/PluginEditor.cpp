@@ -50,15 +50,6 @@ DiddyBop_AudioProcessorEditor::DiddyBop_AudioProcessorEditor (DiddyBop_AudioProc
     BassBoost->addListener (this);
     BassBoost->setColour (ToggleButton::textColourId, Colours::red);
 
-    addAndMakeVisible (textEditor = new TextEditor ("new text editor"));
-    textEditor->setMultiLine (false);
-    textEditor->setReturnKeyStartsNewLine (false);
-    textEditor->setReadOnly (false);
-    textEditor->setScrollbarsShown (true);
-    textEditor->setCaretVisible (true);
-    textEditor->setPopupMenuEnabled (true);
-    textEditor->setText (String());
-
     cachedImage_comp4_00100_png_1 = ImageCache::getFromMemory (comp4_00100_png, comp4_00100_pngSize);
     cachedImage_comp4_00100_png_2 = ImageCache::getFromMemory (comp4_00100_png, comp4_00100_pngSize);
 
@@ -69,6 +60,7 @@ DiddyBop_AudioProcessorEditor::DiddyBop_AudioProcessorEditor (DiddyBop_AudioProc
 
 
     //[Constructor] You can add your own custom stuff here..
+    startTimer(50);
     //[/Constructor]
 }
 
@@ -80,7 +72,6 @@ DiddyBop_AudioProcessorEditor::~DiddyBop_AudioProcessorEditor()
     Compressor1 = nullptr;
     Input_Gain = nullptr;
     BassBoost = nullptr;
-    textEditor = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -89,9 +80,12 @@ DiddyBop_AudioProcessorEditor::~DiddyBop_AudioProcessorEditor()
 
 void DiddyBop_AudioProcessorEditor::timerCallback()
 {
-	DiddyBop_AudioProcessor* ourPreocessor = getProcessor();
-
-	textEditor->setText(String(ourPreocessor->getThreshold()), true);
+    DiddyBop_AudioProcessor* ourProcessor = getProcessor();
+    
+    Compressor1->setValue(ourProcessor->getThreshold());
+    
+    Input_Gain->setValue(ourProcessor->gainDecibels_, dontSendNotification);
+   
 }
 
 //==============================================================================
@@ -130,7 +124,6 @@ void DiddyBop_AudioProcessorEditor::resized()
     Compressor1->setBounds (56, 192, 200, 108);
     Input_Gain->setBounds (320, 184, 200, 108);
     BassBoost->setBounds (256, 392, 150, 24);
-    textEditor->setBounds (80, 376, 150, 24);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -215,10 +208,6 @@ BEGIN_JUCER_METADATA
                 virtualName="" explicitFocusOrder="0" pos="256 392 150 24" txtcol="ffff0000"
                 buttonText="BassBoost" connectedEdges="0" needsCallback="1" radioGroupId="0"
                 state="0"/>
-  <TEXTEDITOR name="new text editor" id="d6e2fa245dd76212" memberName="textEditor"
-              virtualName="" explicitFocusOrder="0" pos="80 376 150 24" initialText=""
-              multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
-              caret="1" popupmenu="1"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

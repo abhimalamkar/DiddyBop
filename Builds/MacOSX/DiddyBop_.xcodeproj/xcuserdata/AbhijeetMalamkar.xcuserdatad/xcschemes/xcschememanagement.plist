@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>DiddyBop_ (AU).xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>DiddyBop_ (All).xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+		<key>DiddyBop_ (Shared Code).xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+		<key>DiddyBop_ (VST).xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>6E7495214B20F07B533DA008</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>80ED10228FAD72A449831FBE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A3C88C9F2CCF03C2F7F59A86</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DEDB23DC3269A0F544D6D407</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>
