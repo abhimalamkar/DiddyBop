@@ -128,9 +128,6 @@ void DiddyBop_AudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlo
 		//Compressor
 		//==========================================================================
 
-
-
-
 		// Use this method as the place to do any pre-playback initialisation that you need.
 	M = round(getNumInputChannels() / 2);
 	samplerate = (float)getSampleRate();
@@ -361,12 +358,12 @@ void DiddyBop_AudioProcessor::getStateInformation(MemoryBlock& destData)
 	// You could do that either as raw data, or use the XML or ValueTree classes
 	// as intermediaries to make it easy to save and load complex data.
 	// Create an outer XML element..
-	XmlElement xml("DIDDYBOP_PLUGINSETTINGS");
+	XmlElement xml("C4DMPLUGINSETTINGS");
 
 	// add some attributes to it..
 	xml.setAttribute("uiWidth", lastUIWidth_);
 	xml.setAttribute("uiHeight", lastUIHeight_);
-	xml.setAttribute("threshold", threshold);
+	xml.setAttribute("centreFrequency", centreFrequency_);
 	xml.setAttribute("q", q_);
 	xml.setAttribute("gainDecibels", gainDecibels_);
 
@@ -385,13 +382,13 @@ void DiddyBop_AudioProcessor::setStateInformation(const void* data, int sizeInBy
 	if (xmlState != 0)
 	{
 		// make sure that it's actually our type of XML object..
-		if (xmlState->hasTagName("DIDDYBOP_PLUGINSETTINGS"))
+		if (xmlState->hasTagName("C4DMPLUGINSETTINGS"))
 		{
 			// ok, now pull out our parameters..
 			lastUIWidth_ = xmlState->getIntAttribute("uiWidth", lastUIWidth_);
 			lastUIHeight_ = xmlState->getIntAttribute("uiHeight", lastUIHeight_);
 
-			threshold = (float)xmlState->getDoubleAttribute("threshold", threshold);
+			centreFrequency_ = (float)xmlState->getDoubleAttribute("centreFrequency", centreFrequency_);
 			q_ = (float)xmlState->getDoubleAttribute("q", q_);
 			gainDecibels_ = (float)xmlState->getDoubleAttribute("gainDecibels", gainDecibels_);
 			updateEQFilter(getSampleRate());

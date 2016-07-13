@@ -48,7 +48,7 @@ public:
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
 
-	void timerCallback();
+	virtual void timerCallback();
 	DiddyBop_AudioProcessor* getProcessor() const {
 		return static_cast<DiddyBop_AudioProcessor*> (getAudioProcessor());
 	}
@@ -73,6 +73,7 @@ private:
     ScopedPointer<Slider> Compressor1;
     ScopedPointer<Slider> Input_Gain;
     ScopedPointer<ToggleButton> BassBoost;
+    ScopedPointer<TextEditor> textEditor;
     Image cachedImage_comp4_00100_png_1;
     Image cachedImage_comp4_00100_png_2;
 
