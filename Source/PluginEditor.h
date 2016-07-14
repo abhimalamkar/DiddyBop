@@ -23,6 +23,7 @@
 //[Headers]     -- You can add your own extra header files here --
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
+#include_next "FilmStripKnob.h"
 //[/Headers]
 
 
@@ -48,7 +49,7 @@ public:
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
 
-	void timerCallback();
+	void timerCallback() override;
 	DiddyBop_AudioProcessor* getProcessor() const {
 		return static_cast<DiddyBop_AudioProcessor*> (getAudioProcessor());
 	}
@@ -76,6 +77,7 @@ private:
     Image cachedImage_comp4_00100_png_1;
     Image cachedImage_comp4_00100_png_2;
 
+    FilmStripKnob *filmStripKnob;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DiddyBop_AudioProcessorEditor)

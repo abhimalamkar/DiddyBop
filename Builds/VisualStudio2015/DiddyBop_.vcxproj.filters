@@ -2226,6 +2226,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\FilmStripKnob.h">
+      <Filter>DiddyBop_\Source</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\Compressor.h">
       <Filter>DiddyBop_\Source</Filter>
     </ClInclude>

@@ -38,6 +38,7 @@ DiddyBop_AudioProcessorEditor::DiddyBop_AudioProcessorEditor (DiddyBop_AudioProc
     Compressor1->setSliderStyle (Slider::Rotary);
     Compressor1->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     Compressor1->addListener (this);
+    Compressor1->setVelocityBasedMode(true);
 
     addAndMakeVisible (Input_Gain = new Slider ("Centre Frequecy"));
     Input_Gain->setRange (-20, 30, 1);
@@ -60,6 +61,9 @@ DiddyBop_AudioProcessorEditor::DiddyBop_AudioProcessorEditor (DiddyBop_AudioProc
 
 
     //[Constructor] You can add your own custom stuff here..
+    addAndMakeVisible(filmStripKnob = new FilmStripKnob(String("~/Users/AbhijeetMalamkar/Downloads/KNOB RENDER/Comp 4/Comp 4_00100.png"),4,true));
+    
+    
     startTimer(50);
     //[/Constructor]
 }
@@ -72,7 +76,7 @@ DiddyBop_AudioProcessorEditor::~DiddyBop_AudioProcessorEditor()
     Compressor1 = nullptr;
     Input_Gain = nullptr;
     BassBoost = nullptr;
-
+    deleteAllChildren();
 
     //[Destructor]. You can add your own custom destruction code here..
     //[/Destructor]
@@ -86,6 +90,13 @@ void DiddyBop_AudioProcessorEditor::timerCallback()
     
     Input_Gain->setValue(ourProcessor->gainDecibels_, dontSendNotification);
    
+    repaint();
+    
+    if(ourProcessor->getThreshold()>(-20))
+    {
+      //
+    }
+    
    // BassBoost->setToggleState(ourProcessor()->bassBoost);
     
 }
@@ -105,6 +116,8 @@ void DiddyBop_AudioProcessorEditor::paint (Graphics& g)
                 Justification::centred, true);
 
     g.setColour (Colours::black);
+    
+    if(getProcessor()->getThreshold()<(-20))
     g.drawImage (cachedImage_comp4_00100_png_1,
                  40, 128, 232, 232,
                  0, 0, cachedImage_comp4_00100_png_1.getWidth(), cachedImage_comp4_00100_png_1.getHeight());
@@ -126,6 +139,10 @@ void DiddyBop_AudioProcessorEditor::resized()
     Compressor1->setBounds (56, 192, 200, 108);
     Input_Gain->setBounds (320, 184, 200, 108);
     BassBoost->setBounds (256, 392, 150, 24);
+    filmStripKnob->setBounds(20,
+                             20,
+                             filmStripKnob->getFrameWidth(),
+                             filmStripKnob->getFrameHeight());
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }

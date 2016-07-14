@@ -37,7 +37,7 @@ DiddyBop_AudioProcessor::DiddyBop_AudioProcessor()
 		inputBuffer[i].setSize(1, 1);
 	}
 
-	setThreshold(-1);
+	
     //=======
 
 	lastUIWidth_ = 550;
@@ -212,7 +212,6 @@ void DiddyBop_AudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer
 		setParameterNotifyingHost(DiddyBop_AudioProcessor::kQParam, 0.1);
 	}
 	
-	float** samples;
 
 	{
 
